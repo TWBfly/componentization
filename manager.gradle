@@ -1,0 +1,49 @@
+def isRelease = Config.isRelease
+if (isRelease) {
+    apply plugin: 'com.android.library'
+} else {
+    apply plugin: 'com.android.application'
+}
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+android {
+    compileSdkVersion Config.compileSdkVersion
+    buildToolsVersion Config.buildToolsVersion
+
+    defaultConfig {
+        println("Config.gradleType="+Config.gradleType)
+        if (!isRelease) {
+            applicationId Config.gradleType
+        }
+        minSdkVersion Config.minSdkVersion
+        targetSdkVersion Config.targetSdkVersion
+        versionCode Config.versionCode
+        versionName Config.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        //在BuildConfig中生成代码,在java,kotlin可以调用这个属性
+        buildConfigField("boolean", "isRelease", String.valueOf(isRelease))
+        println("applicationId="+applicationId)
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // 本质是个map,遍历引入第三方库
+//    support.each { k, v -> implementation v }
+
+    Config.depConfig.support.each { v ->
+        println("path  " + v.value.path)
+        api v.value.path
+    }
+
+}
+

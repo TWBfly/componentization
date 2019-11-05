@@ -1,0 +1,2 @@
+include ':app', ':order', ':library'
+rootProject.name='My Componentization'

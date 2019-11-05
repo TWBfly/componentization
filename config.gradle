@@ -1,0 +1,26 @@
+ext {
+    isRelease = false  //true是集成化  false是组件化
+
+    androidId = [
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.2",
+            minSdkVersion    : 19,
+            targetSdkVersion : 29,
+            versionCode      : 1,
+            versionName      : "1.0",
+    ]
+
+    appId = [
+            app    : "win.tang.mycomponentizationt",
+            library: "win.tang.library",
+            order  : "win.tang.order",
+    ]
+
+    supportId = [
+            kotlin_version  : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version",
+            appcompat       : 'androidx.appcompat:appcompat:1.1.0',
+            core_ktx        : 'androidx.core:core-ktx:1.1.0',
+            constraintlayout: 'androidx.constraintlayout:constraintlayout:1.1.3',
+    ]
+
+}
